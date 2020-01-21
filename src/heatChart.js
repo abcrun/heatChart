@@ -184,9 +184,6 @@
 
       this.image = image;
       this.offset = { width: width, height: height }
-      //原始radius格式化数据，根据scale换算出来的数据画点
-      this.data = formatData(data, width, height, radius);
-      this.filter = filter ? filter : (data ? [this.data.min, this.data.max] : this.filter);
 
       if(url){
         image.src = url;
@@ -207,9 +204,13 @@
 
           autoscale && that.gesture.setOption({minScale: scale})
 
+          that.data = formatData(data, w, h, radius);
+          that.filter = filter ? filter : (data ? [that.data.min, that.data.max] : that.filter);
           that.render();
         }
       }else{
+        this.data = formatData(data, image.width, image.height, radius);
+        this.filter = filter ? filter : (data ? [this.data.min, this.data.max] : this.filter);
         this.render();
       }
 
